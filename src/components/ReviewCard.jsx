@@ -12,7 +12,7 @@ export default function ReviewCard({ movie, onReadMore }) {
       <div className="card-footer">
         {rating && <div className="rating">⭐ {rating}/10</div>}
         <button className="read-more-btn" onClick={() => onReadMore(id)}>
-          Read More
+          Check Reviews
         </button>
       </div>
     </div>

@@ -1,18 +1,18 @@
 .movie-card {
   background: white;
-  border: 1px solid #000;
-  border-radius: 0;
+  border: none;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: none;
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
 .movie-card:hover {
-  transform: none;
-  box-shadow: 2px 2px 0 #000;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .card-image {
@@ -27,7 +27,7 @@
   height: 100%;
   object-fit: cover;
   filter: grayscale(100%);
-  transition: filter 0.2s ease;
+  transition: filter 0.3s ease;
 }
 
 .movie-card:hover .movie-cover {
@@ -35,38 +35,42 @@
 }
 
 .card-footer {
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  border-top: 1px solid #000;
+  gap: 1rem;
+  border-top: none;
 }
 
 .rating {
   font-size: 0.95rem;
   color: #000;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .read-more-btn {
   background-color: #000;
   color: white;
-  border: 1px solid #000;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .read-more-btn:hover {
-  background-color: white;
-  color: #000;
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .read-more-btn:active {
-  transform: none;
+  transform: translateY(0);
 }
+
 
 
