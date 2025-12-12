@@ -34,19 +34,134 @@
   filter: grayscale(0%);
 }
 
-.card-footer {
+.card-content {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border-top: none;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
 }
 
-.rating {
-  font-size: 0.95rem;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000;
+  flex: 1;
+}
+
+.card-rating {
+  font-size: 0.9rem;
   color: #000;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reviews-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.review-item {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.review-item:hover {
+  border-color: #000;
+  background: #fff;
+}
+
+.review-summary {
+  padding: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.review-summary:hover {
+  background: #f5f5f5;
+}
+
+.review-author {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.review-rating {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.review-details {
+  padding: 0.75rem;
+  padding-top: 0;
+  border-top: 1px solid #e0e0e0;
+  background: #f9f9f9;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.review-date {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.review-text {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.no-reviews {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
 }
 
 .read-more-btn {
@@ -60,6 +175,7 @@
   font-weight: 600;
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
+  margin-top: auto;
 }
 
 .read-more-btn:hover {

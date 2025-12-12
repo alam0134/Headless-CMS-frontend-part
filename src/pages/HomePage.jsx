@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
-import ReviewCard from '../components/ReviewCard'
+import ReviewListItem from '../components/ReviewListItem'
 import ReviewDetailPage from './ReviewDetailPage'
 import './HomePage.css'
 
 export default function HomePage() {
   const [movies, setMovies] = useState([])
-  const [filteredMovies, setFilteredMovies] = useState([])
+  const [allReviews, setAllReviews] = useState([])
+  const [filteredReviews, setFilteredReviews] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedMovieId, setSelectedMovieId] = useState(null)
+  const [selectedReview, setSelectedReview] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterRating, setFilterRating] = useState('all')
 
@@ -24,7 +26,26 @@ export default function HomePage() {
         }
         const data = await response.json()
         console.log('Movies data:', data.data)
-        setMovies(data.data || [])
+        
+        const moviesData = data.data || []
+        setMovies(moviesData)
+        
+        // Mix all reviews together with their movie info
+        const reviews = []
+        moviesData.forEach((movie) => {
+          if (movie.reviews && movie.reviews.length > 0) {
+            movie.reviews.forEach((review) => {
+              reviews.push({
+                ...review,
+                movieId: movie.id,
+                movieTitle: movie.title,
+                movieImage: movie.poster?.url || null,
+              })
+            })
+          }
+        })
+        
+        setAllReviews(reviews)
       } catch (err) {
         setError(err.message)
         console.error('Error fetching reviews:', err)
@@ -38,13 +59,14 @@ export default function HomePage() {
 
   // Filter and search logic
   useEffect(() => {
-    let filtered = [...movies]
+    let filtered = [...allReviews]
 
-    // Search filter
+    // Search filter - search by movie title or review comment
     if (searchTerm.trim()) {
-      filtered = filtered.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        movie.description.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter((review) =>
+        review.movieTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        review.comment.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        review.authorName.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
@@ -55,14 +77,18 @@ export default function HomePage() {
       filtered = filtered.sort((a, b) => (a.rating || 0) - (b.rating || 0))
     }
 
-    setFilteredMovies(filtered)
-  }, [searchTerm, filterRating, movies])
+    setFilteredReviews(filtered)
+  }, [searchTerm, filterRating, allReviews])
 
-  if (selectedMovieId) {
+  if (selectedMovieId && selectedReview) {
     return (
       <ReviewDetailPage
         movieId={selectedMovieId}
-        onBack={() => setSelectedMovieId(null)}
+        review={selectedReview}
+        onBack={() => {
+          setSelectedMovieId(null)
+          setSelectedReview(null)
+        }}
       />
     )
   }
@@ -75,7 +101,7 @@ export default function HomePage() {
         <div className="search-box">
           <input
             type="text"
-            placeholder="Search reviews by title or description..."
+            placeholder="Search reviews by title, author, or comment..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -98,20 +124,25 @@ export default function HomePage() {
 
       {loading && <div className="loading">Loading reviews...</div>}
       {error && <div className="error">Error: {error}</div>}
-      {!loading && !error && filteredMovies.length === 0 && (
+      {!loading && !error && filteredReviews.length === 0 && (
         <div className="no-movies">No reviews found</div>
       )}
-      {!loading && !error && filteredMovies.length > 0 && (
+      {!loading && !error && filteredReviews.length > 0 && (
         <>
           <div className="results-info">
-            Showing {filteredMovies.length} {filteredMovies.length === 1 ? 'review' : 'reviews'}
+            Showing {filteredReviews.length} {filteredReviews.length === 1 ? 'review' : 'reviews'}
           </div>
-          <div className="movies-grid">
-            {filteredMovies.map((movie) => (
-              <ReviewCard
-                key={movie.id}
-                movie={movie}
-                onReadMore={setSelectedMovieId}
+          <div className="reviews-list">
+            {filteredReviews.map((review) => (
+              <ReviewListItem
+                key={review.id}
+                review={review}
+                movieTitle={review.movieTitle}
+                movieImage={review.movieImage}
+                onViewMovie={() => {
+                  setSelectedMovieId(review.movieId)
+                  setSelectedReview(review)
+                }}
               />
             ))}
           </div>

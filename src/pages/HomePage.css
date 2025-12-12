@@ -1,6 +1,6 @@
 .home-page {
   padding: 2.5rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   background: white;
   min-height: 100vh;
@@ -124,10 +124,10 @@
   color: #999;
 }
 
-.movies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 2.5rem;
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -135,13 +135,11 @@
     padding: 1.5rem;
   }
 
-  .movies-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+  .reviews-list {
+    gap: 1rem;
   }
 
   .home-page h1 {
     font-size: 2rem;
   }
 }
-
