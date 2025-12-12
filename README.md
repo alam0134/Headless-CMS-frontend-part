@@ -1,3 +1,42 @@
+Movie Review Website
+
+A modern, responsive movie review web application built using React and Vite. The project provides users with a seamless interface to browse movies, read reviews, and explore detailed information such as ratings, genres, descriptions, and release years.
+
+This project uses Vite for fast development, React for UI rendering, and includes Hot Module Replacement (HMR) and ESLint configurations to support clean and maintainable code.
+
+Features
+
+Browse a list of movies with posters, descriptions, and ratings
+
+View detailed information about each movie
+
+Clean and responsive UI
+
+Fast development experience using Vite
+
+ESLint setup to ensure code quality
+
+Component-based architecture following modern React patterns
+
+Tech Stack
+Frontend
+
+React – Component-based UI library
+
+Vite – Fast development environment and build tool
+
+JavaScript (ES6+)
+
+CSS / Tailwind (optional depending on your project)
+
+Development Tools
+
+@vitejs/plugin-react – Uses Babel or oxc for Fast Refresh
+
+@vitejs/plugin-react-swc – Uses SWC for Fast Refresh
+
+ESLint – Linting and code-quality rules
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
